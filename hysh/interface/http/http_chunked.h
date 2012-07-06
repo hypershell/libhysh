@@ -1,6 +1,4 @@
 
-
-
 typedef struct hy_http_chunked_body_callback {
     hy_read_stream_listener parent;
     
@@ -23,9 +21,12 @@ typedef struct hy_http_chunked_request_converter {
     hy_object parent;
     
     hyresult (*convert_chunked_body)(void *self,
-            hy_read_stream *body,
-            hy_destructory body_destructor,
-            hy_chunked_body_reader **retval,
+            hy_http_headers *headers,
+            hy_read_stream *chunked_body,
+            hy_destructor body_destructor,
+            
+            hy_http_headers **ret_headers,
+            hy_chunked_body_reader **ret_parsed_body,
             hy_destructor *ret_destructor);
     
 } hy_http_chunked_request_converter;
@@ -38,3 +39,16 @@ typedef struct hy_http_chunked_body_writer {
     hyresult (*write_trailer)(void *self, hy_http_header *header);
 
 } hy_http_chunked_body_writer;
+
+typedef struct hy_http_chunked_body_writer_converter {
+    hy_object parent;
+    
+    hyresult (*convert_body)(void *self,
+            hy_http_headers *headers,
+            hy_write_stream *raw_write_stream,
+            hy_destructor write_destructor,
+            
+            hy_http_headers **ret_headers,
+            hy_http_chunked_body_writer **ret_writer,
+            hy_destructor *ret_destructor);
+};

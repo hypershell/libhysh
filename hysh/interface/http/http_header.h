@@ -33,6 +33,7 @@ typedef struct hy_http_header {
     hyresult (*field_name)(void *self, hy_string **retval);
     
     hyresult (*field_value)(void *self, hy_string **retval);
+    
 } hy_http_header;
 
 typedef struct hy_http_headers {
@@ -42,4 +43,5 @@ typedef struct hy_http_headers {
     
     hyresult (*get_header)(void *self, 
             hy_string *name, hy_http_header **retval);
+    
 } hy_http_headers;

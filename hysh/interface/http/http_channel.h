@@ -6,15 +6,12 @@
 typedef struct hy_http_reader_callback {
     hy_object parent;
     
-    hyresult (*on_malformed_http)(void *self, hyresult err,
-            hy_read_stream *raw_stream,
-            hy_destructor raw_stream_destructor);
-    
     hyresult (*on_headers_available)(void *self,
-            hy_http_headers **ret_response_headers);
+            hy_http_headers *headers);
     
     hyresult (*on_read_stream_available)(void *self,
-            hy_read_stream **ret_body);
+            hy_read_stream *body,
+            hy_destructor body_destructor);
 
 } hy_http_reader_callback;
 
@@ -22,7 +19,7 @@ typedef struct hy_http_server_request_reader_callback {
     hy_http_reader_callback parent;
     
     hyresult (*on_request_line_available)(void *self,
-            hy_http_request_line **ret_request_line);
+            hy_http_request_line *request_line);
 
 } hy_http_server_request_reader_callback;
 
@@ -30,7 +27,7 @@ typedef struct hy_http_client_response_reader_callback {
     hy_http_reader_callback parent;
     
     hyresult (*on_response_line_available)(void *self,
-            hy_http_response_line **ret_response_line);
+            hy_http_response_line *response_line);
             
 } hy_http_client_response_reader_callback;
 
@@ -54,7 +51,9 @@ typedef struct hy_http_writer {
     
     hyresult (*write_headers)(void *self, hy_http_headers *headers);
     
-    hyresult (*write_body)(void *self, hy_http_read_stream *stream);
+    hyresult (*write_body)(void *self, 
+            hy_http_read_stream *body, 
+            hy_destructor body_destructor);
 };
 
 typedef struct hy_http_server_response_writer {
