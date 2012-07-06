@@ -9,22 +9,29 @@ extern "C" {
 
 namespace hysh {
 
-template <typename Parent>
-class DataBufferImpl {
+template <typename Impl>
+class DataBufferImpl : 
+    public hy_data_buffer
+{
   public:
-    static void Init(Parent *self, hy_data_buffer *obj) {
-        RefcountedObjectImpl<Parent>::Init(self, &obj->parent);
+    DataBufferImpl()
+    {
+        InitMethodTable(static_cast<Impl*>(this), static_cast<hy_data_buffer*>(this));
+    }
+    
+    static void InitMethodTable(Impl *self, hy_data_buffer *obj) {
+        RefcountedObjectImpl<Impl>::InitMethodTable(self, &obj->parent);
         
         obj->size = Size;
         obj->buffer = Buffer;
     }
     
     static hyresult Size(void *self, uint64_t *retval) {
-        return static_cast<Parent*>(self)->Size(retval);
+        return ((Impl*)self)->Size(retval);
     }
 
     static hyresult Buffer(void *self, const char **retval) {
-        return static_cast<Parent*>(self)->Buffer(retval);
+        return ((Impl*)self)->Buffer(retval);
     }
 };
 

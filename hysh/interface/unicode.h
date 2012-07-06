@@ -22,3 +22,11 @@ typedef struct hy_unicode_string {
     
     hyresult (*encoding)(void *self, hy_string **retval);
 } hy_unicode_string;
+
+typedef struct hy_utf8_string {
+    hy_unicode_string parent;
+    
+    hyresult (*raw_size)(void *self, size_t *retval);
+    
+    hyresult (*utf8_string)(void *self, const char **retval);
+};

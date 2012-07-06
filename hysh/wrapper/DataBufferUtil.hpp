@@ -2,7 +2,7 @@
 #pragma once
 
 extern "C" {
-#include <hysh/interface/data_buffer_factory.h>
+#include <hysh/interface/data_buffer_util.h>
 }
 
 #include <hysh/wrapper/Object.hpp>

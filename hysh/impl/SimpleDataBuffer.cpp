@@ -9,10 +9,10 @@ SimpleDataBuffer::SimpleDataBuffer() :
     mBuffer(0),
     mSize(0)
 { 
-    DataBufferImpl<SimpleDataBuffer>::Init(this, this);
+    
 }
 
-hyresult SimpleDataBuffer::Init(char *buffer, size_t size, DeallocatorPtr dealloc) {
+hyresult SimpleDataBuffer::Initialize(char *buffer, size_t size, DeallocatorPtr dealloc) {
     mBuffer = buffer;
     mSize = size;
     mBufferDealloc = dealloc;
@@ -35,7 +35,7 @@ hyresult SimpleDataBuffer::QueryInterface(hy_iid iid, hy_object **retval) {
     return HY_NOT_IMPLEMENTED;
 }
 
-hyresult SimpleDataBuffer::Uninit() {
+hyresult SimpleDataBuffer::Uninitialize() {
     return mBufferDealloc.Deallocate(mBuffer);
 }
 

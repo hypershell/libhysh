@@ -17,14 +17,18 @@ class SimpleRefcounted
     }
     
     hyresult DeRef() {
-        hyresult res = HY_OK;
+        Result res;
+        
+        TracerPtr tracer;
+        res = This()->GetTracer(tracer.EditPtr());
         
         if(mCount > 0) {
             --mCount;
         }
         
         if(mCount == 0) {
-            res = static_cast<Parent*>(this)->Destruct();
+            res = This()->Destruct();
+            RETURN_IF_FAIL(res, tracer);
         }
         
         return res;
@@ -35,6 +39,10 @@ class SimpleRefcounted
     }
     
   private:
+    Parent* This() {
+        return static_cast<Parent*>(this);
+    }
+      
     uint32_t mCount;
 };
 

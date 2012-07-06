@@ -5,17 +5,15 @@
 #include <hysh/impl_wrapper/SimpleRefcounted.hpp>
 #include <hysh/impl_wrapper/AllocatorImpl.hpp>
 
-#define SimpleDataBufferCid 0x19d2f349b66a9911
-
 namespace hysh {
 
 class SimpleDataBuffer : 
-    public hy_data_buffer,
-    public SimpleRefcounted<SimpleDataBuffer>,
-    public DestructorImpl<SimpleDataBuffer>
+    public DataBufferImpl<SimpleDataBuffer>,
+    public SimpleRefcounted<Impl>,
+    public DestructorImpl<Impl>
 {
   public:
-    static const hy_cid ClassId = SimpleDataBufferCid;
+    static const hy_cid ClassId = 0x19d2f349b66a9911;
       
     SimpleDataBuffer();
     
@@ -32,9 +30,9 @@ class SimpleDataBuffer :
     ~SimpleDataBuffer();
     
   private:
-    char        *mBuffer;
-    uint64_t    mSize;
-    DeallocatorPtr mBufferDealloc;
+    char            *mBuffer;
+    uint64_t        mSize;
+    DeallocatorPtr  mBufferDealloc;
 };
 
 }
