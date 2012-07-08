@@ -2,7 +2,7 @@
 #include <hysh/interface/data_buffer.h>
 
 typedef struct hy_read_stream_callback {
-    hy_object parent;
+    hy_unique_object parent;
     
     hyresult (*on_read)(void *self, hy_data_buffer *buffer);
     
@@ -11,7 +11,7 @@ typedef struct hy_read_stream_callback {
 } hy_read_stream_callback;
 
 typedef struct hy_read_stream {
-    hy_object parent;
+    hy_unique_object parent;
     
     hyresult (*is_closed)(void *self, bool *retval);
     
@@ -23,7 +23,7 @@ typedef struct hy_read_stream {
 } hy_read_stream;
 
 typedef struct hy_stream_writer_callback {
-    hy_object parent;
+    hy_unique_object parent;
     
     hyresult (*on_next_write_ready)(void *self);
     
@@ -32,7 +32,7 @@ typedef struct hy_stream_writer_callback {
 } hy_stream_writer_callback;
 
 typedef struct hy_stream_writer {
-    hy_object parent;
+    hy_unique_object parent;
     
     hyresult (*write)(void *self, hy_data_buffer *buffer,
             hy_stream_writer_callback *callback);
@@ -42,7 +42,7 @@ typedef struct hy_stream_writer {
 } hy_stream_writer;
 
 typedef struct hy_write_stream_callback {
-    hy_object parent;
+    hy_unique_object parent;
     
     hyresult (*on_ready_write)(void *self, 
             hy_stream_writer *writer,
@@ -53,7 +53,7 @@ typedef struct hy_write_stream_callback {
 } hy_write_stream_callback;
 
 typedef struct hy_write_stream {
-    hy_object parent;
+    hy_unique_object parent;
     
     hyresult (*start_write)(void *self, hy_write_stream_callback *callback);
 } hy_write_stream;

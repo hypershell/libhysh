@@ -4,7 +4,7 @@
 #include <hysh/interface/stream.h>
 
 typedef struct hy_http_reader_callback {
-    hy_object parent;
+    hy_unique_object parent;
     
     hyresult (*on_headers_available)(void *self,
             hy_http_headers *headers);
@@ -32,29 +32,29 @@ typedef struct hy_http_client_response_reader_callback {
 } hy_http_client_response_reader_callback;
 
 typedef struct hy_http_server_request_reader {
-    hy_object parent;
+    hy_unique_object parent;
     
     hyresult (*read_request_channel)(void *self,
             hy_http_server_request_reader_callback *callback);
 
-} hy_http_server_request_channel;
+} hy_http_server_request_reader;
 
 typedef struct hy_http_client_response_reader {
-    hy_object parent;
+    hy_unique_object parent;
     
     hyresult (*read_response_channel)(void *self,
             hy_http_client_response_reader_callback *callback);
-};
+} hy_http_client_response_reader;
 
 typedef struct hy_http_writer {
-    hy_object parent;
+    hy_unique_object parent;
     
     hyresult (*write_headers)(void *self, hy_http_headers *headers);
     
     hyresult (*write_body)(void *self, 
             hy_http_read_stream *body, 
             hy_destructor body_destructor);
-};
+} hy_http_writer;
 
 typedef struct hy_http_server_response_writer {
     hy_http_writer parent;
@@ -67,3 +67,19 @@ typedef struct hy_http_client_request_writer {
     
     hyresult (*write_request_line)(void *self, hy_http_request_line *request_line);
 } hy_http_client_request_writer;
+
+typedef struct hy_http_channel_factory {
+    hy_object parent;
+    
+    hyresult (*create_http_server_request_reader)(void *self,
+            hy_http_request_line *request_line,
+            hy_http_header *request_header,
+            hy_read_stream *request_body,
+            hy_http_server_request_reader **retval);
+            
+    hyresult (*create_http_client_response_reader)(void *self,
+            hy_http_response_line *response_line,
+            hy_http_header *request_header,
+            hy_read_stream *request_body,
+            hy_http_client_response_reader **retval);
+} hy_http_channel_factory;

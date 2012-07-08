@@ -9,11 +9,8 @@ typedef struct hy_http_body_converter {
     hyresult (*convert_http_body)(void *self,
             hy_http_headers *headers,
             hy_read_stream *original_stream,
-            hy_destructor *stream_destructor,
-            
             hy_http_headers **ret_converted_headers,
-            hy_read_stream **ret_stream,
-            hy_destructor *ret_stream_destructor);
+            hy_read_stream **ret_converted_stream);
     
 } hy_http_body_converter;
 
@@ -22,17 +19,11 @@ typedef struct hy_http_to_stream_converter {
     
     hyresult (*http_request_to_read_stream)(void *self,
         hy_http_server_request_reader *request,
-        hy_destructor request_destructor,
-        
-        hy_read_stream **ret_read_stream,
-        hy_destructor *ret_destructor);
+        hy_read_stream **ret_read_stream);
         
     hyresult (*http_response_to_read_stream)(void *self,
         hy_http_client_response_reader *response,
-        hy_destructor response_destructor,
-        
-        hy_read_stream **ret_read_stream,
-        hy_destructor *ret_destructor);
+        hy_read_stream **ret_read_stream);
 } hy_http_to_stream_converter;
 
 typedef struct hy_stream_to_http_request_callback {
@@ -42,8 +33,7 @@ typedef struct hy_stream_to_http_request_callback {
             hy_http_server_request_reader *request);
     
     hyresult (*on_request_conversion_error)(void *self,
-            hy_read_stream *raw_stream,
-            hy_destructor raw_stream_destructor);
+            hy_read_stream *raw_stream);
     
 } hy_stream_to_http_request_callback;
 
@@ -54,8 +44,7 @@ typedef struct hy_stream_to_http_response_callback {
             hy_http_client_response_reader *response);
     
     hyresult (*on_response_conversion_error)(void *self,
-            hy_read_stream *raw_stream,
-            hy_destructor raw_stream_destructor);
+            hy_read_stream *raw_stream);
 } hy_stream_to_http_request_callback;
 
 typedef struct hy_stream_to_http_converter {
@@ -63,12 +52,10 @@ typedef struct hy_stream_to_http_converter {
     
     hyresult (*read_stream_to_http_request)(void *self,
             hy_read_stream *raw_stream,
-            hy_destructor stream_destructor,
             hy_stream_to_http_request_callback *callback);
             
     hyresult (*read_stream_to_http_response)(void *self,
             hy_read_stream *raw_stream,
-            hy_destructor stream_destructor,
             hy_stream_to_http_response_callback *callback);
     
 } hy_http_to_stream_converter;

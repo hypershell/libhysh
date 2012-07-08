@@ -9,7 +9,8 @@ typedef struct http_line {
     hyresult (*major_version)(void *self, uint32_t *retval);
     
     hyresult (*minor_version)(void *self, uint32_t *retval);
-};
+    
+} http_line;
 
 typedef struct hy_http_request_line {
     hy_http_line parent;
@@ -17,6 +18,7 @@ typedef struct hy_http_request_line {
     hyresult (*request_method)(void *self, hy_string **retval);
     
     hyresult (*request_path)(void *self, hy_string **retval);
+    
 } hy_http_request_line;
 
 typedef struct hy_http_response_line {
@@ -25,6 +27,7 @@ typedef struct hy_http_response_line {
     hyresult (*status_code)(void *self, uint32_t *retval);
     
     hyresult (*status_message)(void *self, hy_string **retval);
+    
 } hy_http_response_line;
 
 typedef struct hy_http_header {

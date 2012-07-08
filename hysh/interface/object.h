@@ -17,12 +17,16 @@ typedef struct hy_object {
     hyresult (*class_id)(void *self, hy_cid *retval);
 } hy_object;
 
-typedef struct hy_refcounted_object {
+typedef struct hy_unique_object {
     hy_object parent;
     
-    hyresult (*add_ref)(void *self);
-    
     hyresult (*de_ref)(void *self);
+} hy_unique_object;
+
+typedef struct hy_refcounted_object {
+    hy_unique_object parent;
+    
+    hyresult (*add_ref)(void *self);
 } hy_refcounted_object;
 
 typedef hyresult (*hy_destructor)(void *self);
