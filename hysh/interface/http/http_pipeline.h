@@ -14,15 +14,9 @@ typedef struct hy_http_pipeline_node {
 typedef struct hy_http_pipeline_builder {
     hy_unique_object parent;
     
-    hyresult (*add_prefilter)(void *self,
-            hy_http_pre_filter_handler *pre_filter);
-    
     hyresult (*add_pipeline_node)(void *self,
             hy_http_pipeline_node *pipeline_node);
-            
-    hyresult (*add_post_filter)(void *self,
-            hy_http_post_filter_handler *post_filter);
-            
+    
     hyresult (*freeze_pipeline)(void *self,
             hy_http_pipeline_node **retval);
     
