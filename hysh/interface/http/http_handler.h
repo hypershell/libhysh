@@ -3,10 +3,18 @@
 
 #include <hysh/interface/http_channel.h>
 
+typedef struct hy_http_request_callback {
+    hy_object parent;
+    
+    hyresult (*on_http_response_available)(void *self,
+            hy_http_client_response_reader *response);
+    
+} hy_http_subrequest_callback;
+
 typedef struct hy_http_response_writer {
     hy_object parent;
     
-    hyresult (*write_response)(void *self,
+    hyresult (*write_http_response)(void *self,
             hy_http_client_response_reader *response);
     
 } hy_http_response_writer;
