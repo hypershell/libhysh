@@ -11,10 +11,12 @@ typedef struct hy_deallocator {
     hy_object parent;
     
     hyresult (*deallocate)(void *self, void *ptr);
+    
 } hy_deallocator;
 
 typedef struct hy_allocator {
     hy_deallocator parent;
 
     hyresult (*allocate)(void *self, size_t size, void **retval);
+    
 } hy_allocator;

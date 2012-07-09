@@ -10,4 +10,5 @@ typedef struct hy_data_buffer {
     hyresult (*buffer)(void *self, const char **retval);
     
     hyresult (*size)(void *self, uint64_t *retval);
+    
 } hy_data_buffer;

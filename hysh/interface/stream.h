@@ -13,11 +13,11 @@ typedef struct hy_read_stream_callback {
 typedef struct hy_read_stream {
     hy_unique_object parent;
     
-    hyresult (*is_closed)(void *self, bool *retval);
-    
     hyresult (*read)(void *self, 
             hy_read_stream_callback *callback);
-    
+
+    hyresult (*is_closed)(void *self, bool *retval);
+
     hyresult (*close_read)(void *self, hyresult result);
     
 } hy_read_stream;
@@ -45,8 +45,7 @@ typedef struct hy_write_stream_callback {
     hy_unique_object parent;
     
     hyresult (*on_ready_write)(void *self, 
-            hy_stream_writer *writer,
-            hy_destructor writer_destructor);
+            hy_stream_writer *writer);
             
     hyresult (*on_read_closed)(void *self, hyresult res);
     
@@ -63,8 +62,6 @@ typedef struct hy_stream_factory {
     
     hyresult (*create_io_stream)(void *self,
             hy_write_stream **ret_write_stream,
-            hy_destructor   *ret_write_stream_destructor,
-            hy_read_stream  **ret_read_stream,
-            hy_destructor   *ret_read_stream_destructor);
+            hy_read_stream  **ret_read_stream);
 
 } hy_stream_factory;

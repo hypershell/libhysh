@@ -1,4 +1,8 @@
 
+#pragma once
+
+#include <hysh/interface/http/http_channel.h>
+
 typedef struct hy_http_chunked_body_callback {
     hy_read_stream_listener parent;
     

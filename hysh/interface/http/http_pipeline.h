@@ -25,6 +25,7 @@ typedef struct hy_http_pipeline_builder {
             
     hyresult (*freeze_pipeline)(void *self,
             hy_http_pipeline_node **retval);
+    
 } hy_http_pipeline_builder;
 
 typedef struct hy_http_request_to_pipeline_node_converter {
@@ -33,6 +34,7 @@ typedef struct hy_http_request_to_pipeline_node_converter {
     hyresult (*http_request_to_pipeline_node)(void *self,
             hy_http_request_line *request_line,
             hy_http_headers *request_headers,
+            hy_http_handler *request_handler,
             hy_http_pipeline_node **retval);
     
 } hy_http_pipeline_node_converter;
@@ -42,10 +44,10 @@ typedef struct hy_http_pipeline_node_to_filter_converter {
     
     hyresult (*http_pipeline_node_to_pre_filter)(void *self,
             hy_http_pipeline_node *node,
-            hy_http_pre_filter **retval);
+            hy_http_pre_filter_handler **retval);
     
     hyresult (*http_pipeline_node_to_pre_filter)(void *self,
             hy_http_pipeline_node *node,
-            hy_http_pre_filter **retval);
+            hy_http_pre_filter_handler **retval);
     
 } hy_http_pipeline_node_to_filter_converter;

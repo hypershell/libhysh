@@ -23,24 +23,31 @@ typedef struct hy_data_buffer_factory {
     hy_object parent;
     
     hyresult (*new_data_buffer_builder)(void *self, uint64_t size, 
-        hy_data_buffer_builder **retval, hy_destructor *builder_destructor);
+            hy_data_buffer_builder **retval, hy_destructor *builder_destructor);
     
     hyresult (*new_static_data_buffer)(void *self, 
-        const char *static_memory, 
-        uint64_t size, 
-        hy_data_buffer **retval);
+            const char *static_memory, 
+            uint64_t size, 
+            hy_data_buffer **retval);
         
     hyresult (*new_data_buffer_from_memory)(void *self,
-        const char *buffer,
-        uint64_t size,
-        bool owning,
-        hy_data_buffer **retval);
+            const char *buffer,
+            uint64_t size,
+            hy_data_buffer **retval);
+        
+    hyresult (*copy_data_buffer_from_memory)(void *self,
+            const char *buffer,
+            uint64_t size,
+            hy_data_buffer **retval);
+    
 } hy_static_data_buffer_factory;
 
 typedef struct hy_data_buffer_splicer {
     hyobject parent;
     
-    hyresult (*splice_buffer)(void *self, hy_data_buffer *buffer, 
-                            uint64_t offset, uint64_t size, 
-                            hy_data_buffer **retval);
+    hyresult (*splice_buffer)(void *self, 
+            hy_data_buffer *buffer, 
+            uint64_t offset, uint64_t size, 
+            hy_data_buffer **retval);
+    
 } hy_data_buffer_splicer;

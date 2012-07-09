@@ -45,6 +45,7 @@ typedef struct hy_stream_to_http_response_callback {
     
     hyresult (*on_response_conversion_error)(void *self,
             hy_read_stream *raw_stream);
+    
 } hy_stream_to_http_request_callback;
 
 typedef struct hy_stream_to_http_converter {
