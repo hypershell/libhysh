@@ -1,6 +1,13 @@
 
 #pragma once
 
+static const hy_iid hy_http_pipeline_node_iid =     0xe8d4b11b7fca8bd4;
+static const hy_iid hy_http_pipeline_builder_iid =  0xf8934e683f8466f5;
+static const hy_iid hy_http_pipeline_builder_factory_iid =  0xef2838fe80f1064a;
+static const hy_iid hy_http_filtered_pipeline_factory_iid = 0x49244c967dd3f5c7;
+static const hy_iid hy_http_handler_to_pipeline_node_converter_iid = 0xbb4f06c9e343de65;
+static const hy_iid hy_http_pipeline_node_to_handler_converter_iid = 0x6214102b6ce550c8;
+
 typedef struct hy_http_pipeline_node {
     hy_unique_object parent;
     
@@ -40,31 +47,3 @@ typedef struct hy_http_filtered_pipeline_factory {
             hy_http_pipeline_node **ret_filtered_node);
     
 } hy_http_filtered_pipeline_factory;
-
-typedef struct hy_http_handler_to_pipeline_node_converter {
-    hy_object parent;
-    
-    hyresult (*create_pipeline_node_from_handler)(void *self,
-            hy_http_handler *request_handler,
-            hy_http_request_line *request_line,
-            hy_http_headers *request_headers,
-            hy_http_pipeline_node **retval);
-    
-} hy_http_handler_to_pipeline_node_converter;
-
-typedef struct hy_http_pipeline_node_to_handler_converter {
-    hy_object parent;
-
-    hyresult (*http_pipeline_node_to_handler)(void *self,
-            hy_http_pipeline_node *node,
-            hy_http_handler **ret_handler);
-    
-    hyresult (*http_pipeline_node_to_pre_filter)(void *self,
-            hy_http_pipeline_node *node,
-            hy_http_pre_filter_handler **retval);
-    
-    hyresult (*http_pipeline_node_to_post_filter)(void *self,
-            hy_http_pipeline_node *node,
-            hy_http_post_filter_handler **retval);
-    
-} hy_http_pipeline_node_to_filter_converter;

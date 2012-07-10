@@ -3,6 +3,16 @@
 
 #include <hysh/interface/stream.h>
 
+static const hy_iid hy_http_reader_callback_iid =                   0x6214102b6ce550c8;
+static const hy_iid hy_http_server_request_reader_callback_iid =    0x9733c12acf2b88f8;
+static const hy_iid hy_http_client_response_reader_callback_iid =   0x1caccd00c2748d57;
+static const hy_iid hy_http_server_request_reader_iid =     0x6e57ef0d8699cdc1;
+static const hy_iid hy_http_client_response_reader_iid =    0x9bcda9cae12a377f;
+static const hy_iid hy_http_writer_iid =                    0x8ae2be701c938ee9;
+static const hy_iid hy_http_client_request_writer_iid =     0xe9c80dda9ffd5958;
+static const hy_iid hy_http_server_response_writer_iid =    0xe7a101576a0bf5dc;
+static const hy_iid hy_http_channel_factory_iid =           0xeccb8b4bf80abec4;
+
 typedef struct hy_http_reader_callback {
     hy_unique_object parent;
     
